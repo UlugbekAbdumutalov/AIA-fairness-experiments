@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from groq import Groq
 import time
 
-client = Groq(api_key=os.environ["GROQ_API_KEY"])")
+client = Groq(api_key=os.environ["GROQ_API_KEY"])
 base = os.path.expanduser("~/pan18/pan18-author-profiling-training-dataset-2018-02-27")
 model = "llama-3.1-8b-instant"
 

@@ -1,6 +1,50 @@
-*.json
-*.log
-*.csv
+# Python and local environments
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets and backups
 .env
+.env.*
+*.pem
+*.key
+*.save
+*.backup
+*.bak
+*~
+
+# Private PAN18-derived author data and generated outputs
+data/
+**/data/
+runs/
+**/runs/
+reports/
+**/reports/
+outputs/
+**/outputs/
+results/
+**/results/
+checkpoints/
+**/checkpoints/
+cache/
+**/cache/
+*.csv
+*.tsv
+*.json
+*.jsonl
+*.log
+*.zip
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.parquet
+
+# Editor and OS noise
+.DS_Store
+.vscode/
