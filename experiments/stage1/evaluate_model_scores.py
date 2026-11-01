@@ -1,8 +1,8 @@
 # ---------------------------------------------------------------------
-# Overnight tests, version 2 (new answer-reading rule)
-#   python3 overnight_tests_v2.py gpt2fix        -> GPT-2 and GPT-2-Medium, English, 100 trials (1 to 3 hours)
-#   python3 overnight_tests_v2.py blank 700      -> blank-input test on 5 small models, 700+700 real authors (minutes)
-#   python3 overnight_tests_v2.py pythia         -> Pythia-6.9B (already done, not needed again)
+# Stage 1 model evaluation (revised answer-reading rule)
+#   python3 evaluate_model_scores.py gpt2fix        -> GPT-2 and GPT-2-Medium, English, 100 trials (1 to 3 hours)
+#   python3 evaluate_model_scores.py blank 700      -> blank-input test on 5 small models, 700+700 real authors (minutes)
+#   python3 evaluate_model_scores.py pythia         -> Pythia-6.9B (already done, not needed again)
 #
 # Choose the GPU BEFORE running, in the terminal:
 #   export CUDA_VISIBLE_DEVICES=0      (or 1, whichever nvidia-smi shows as free)
@@ -26,14 +26,14 @@ from transformers import (
 
 MODE = sys.argv[1] if len(sys.argv) > 1 else ""
 if MODE not in ("blank", "pythia", "gpt2fix"):
-    print("Usage: python3 overnight_tests_v2.py gpt2fix | blank 700 | pythia")
+    print("Usage: python3 evaluate_model_scores.py gpt2fix | blank 700 | pythia")
     sys.exit(1)
 N_REAL = int(sys.argv[2]) if (MODE == "blank" and len(sys.argv) > 2) else 100
 
 base = os.path.expanduser("~/pan18/pan18-author-profiling-training-dataset-2018-02-27")
 project_dir = os.path.expanduser("~/pan18_project")
 os.makedirs(project_dir, exist_ok=True)
-PYTHIA_PATH = "/home/syed/.cache/huggingface/hub/models--EleutherAI--pythia-6.9b/snapshots/c0e3eee36dc47af0c49f361c74cfe459c09f7f23"
+PYTHIA_PATH = os.environ.get("FAIR_AIA_PYTHIA_PATH", "EleutherAI/pythia-6.9b")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 DEVICE_ID = 0 if device == "cuda" else -1
